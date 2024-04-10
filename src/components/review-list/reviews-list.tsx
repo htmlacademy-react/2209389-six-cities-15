@@ -1,3 +1,4 @@
+import { REVIEW_COUNT } from '../../const';
 import { Review } from '../../types/reviews';
 
 type reviewProps = {
@@ -5,14 +6,12 @@ type reviewProps = {
 }
 
 const RATING_WIDTH_STEP = 20;
-const MIN_REVIEW_COUNT = 0;
-const MAX_REVIEW_COUNT = 10;
 
 function ReviewsList({ reviews }: reviewProps): JSX.Element {
   const sortedReviews = reviews
     .map((review) => ({ ...review, date: new Date(review.date) }))
     .sort((a, b) => b.date.getTime() - a.date.getTime())
-    .slice(MIN_REVIEW_COUNT, MAX_REVIEW_COUNT);
+    .slice(REVIEW_COUNT.MIN_REVIEW_COUNT, REVIEW_COUNT.MAX_REVIEW_COUNT);
 
   return (
     <ul className="reviews__list">

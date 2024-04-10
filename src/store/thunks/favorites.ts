@@ -3,6 +3,7 @@ import { AxiosInstance } from 'axios';
 import type {FavoritesStatus} from '../../const';
 import type { ServerOffer } from '../../types/offer';
 import { Endpoint } from '../../const';
+
 //thunk на получение всех файвроитов
 const fetchFavorites = createAsyncThunk<ServerOffer[], undefined, { extra: AxiosInstance }>
 ('favorite/fetchAll', async (_arg, { extra : api}) => {

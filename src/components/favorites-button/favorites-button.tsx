@@ -37,7 +37,7 @@ export function FavoriteButton({ bemBlock = 'place-card', offerId, width = 18 }:
 
   const { changeFavorite, fetchFavorites } = useActionCreators(favoritesActions);
   function handleClick() {
-    // Обертываем вызов асинхронной функции в синхронную
+
     (async () => {
       try {
         if (!authorizationStatus) {

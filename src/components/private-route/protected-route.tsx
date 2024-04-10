@@ -24,13 +24,9 @@ export default function ProtectedRoute({ children, onlyAuth }: TProtectedRoutePr
   //достаем юзера из стора
   const user = useAppSelector(userSelector.userInfo);
 
-  //если мы на странице авторизации и есть пользователь
-  //надо переадресовать либо на страницу с которой нас редиректнуло, либо на главную
-  //когда пользватель есть и случайно попали на страницу ЛОГИНА
+
   if (onlyAuth && user) {
-    // если есть страница авторизации и логина
-    const from = location.state?.from || { pathname: AppRoute.Main};
-    return <Navigate to={from} />;
+    return <Navigate to={AppRoute.Main} />;
   }
   // если нет авторизации и не страница логина
   if (!onlyAuth && !user) {

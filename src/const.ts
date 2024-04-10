@@ -1,8 +1,5 @@
 import { TCity } from './types/offer';
 
-const Settings = {
-  PlacesToStayCount: 312
-} as const;
 
 const CITIES: TCity[] = [
   {
@@ -59,7 +56,7 @@ const CITIES: TCity[] = [
       zoom: 12,
     },
   },
-];
+] as const;
 
 export type CityName = typeof CITIES[number]['name'];
 
@@ -73,7 +70,7 @@ const RATINGS = [
   { value: 3, label: 'not bad' },
   { value: 2, label: 'badly' },
   { value: 1, label: 'terribly' },
-];
+] as const;
 
 enum AppRoute {
   Main = '/',
@@ -99,14 +96,24 @@ const MapSetting = {
     'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   Attribution:
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-};
+} as const;
 
-export const enum RequestStatus { Idle, Loading, Success, Failed}
+export const enum RequestStatus { Idle, Loading, Success, Failed }
 
 export enum FavoritesStatus {
   Added = 1,
   Removed = 0
 }
+
+export const REVIEW_LENGTH = {
+  MIN_REVIEW_LENGTH: 50,
+  MAX_REVIEW_LENGTH: 300,
+} as const;
+
+export const REVIEW_COUNT = {
+  MIN_REVIEW_COUNT: 0,
+  MAX_REVIEW_COUNT: 10
+} as const;
 
 export const Endpoint = {
   Comments: '/comments',
@@ -114,11 +121,11 @@ export const Endpoint = {
   Login: '/login',
   Logout: '/logout',
   Offers: '/offers'
-};
+} as const;
 
 
 export {
-  Settings, CITIES, AppRoute, AuthorizationStatus,
+  CITIES, AppRoute, AuthorizationStatus,
   RATING_WIDTH_STEP, RATINGS, URL_MARKER_CURRENT, URL_MARKER_DEFAULT, DEFAULT_CITY, MapSetting,
 };
 

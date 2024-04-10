@@ -1,12 +1,10 @@
 import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
 import { toast } from 'react-toastify';
-import { RATINGS, RequestStatus } from '../../const';
+import { RATINGS, REVIEW_LENGTH, RequestStatus } from '../../const';
 import { useActionCreators, useAppSelector } from '../../hooks/store';
 import { commentsThunk } from '../../store/thunks/comments';
 import { reviewSelector } from '../../store/slices/reviews';
 
-const MIN_REVIEW_LENGTH = 50;
-const MAX_REVIEW_LENGTH = 300;
 
 type TChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>
 
@@ -25,11 +23,11 @@ function ReviewForm({ offerId }: ReviewFormProps): JSX.Element {
   const { postComment } = useActionCreators(commentsThunk);
   const reviewStatus = useAppSelector(reviewSelector.reviewsStatus);
   const isLoading = reviewStatus === RequestStatus.Loading;
-  const reviewIsInvalid = review.review.length < MIN_REVIEW_LENGTH || review.review.length > MAX_REVIEW_LENGTH || review.rating === 0;
+  const reviewIsInvalid = review.review.length < REVIEW_LENGTH.MIN_REVIEW_LENGTH || review.review.length > REVIEW_LENGTH.MAX_REVIEW_LENGTH || review.rating === 0;
   const handleSubmit = (event: FormEvent) => {
 
     event.preventDefault();
-    // Использую offerId из пропсов и состояние вашей формы для отправки комментария
+    // Использую offerId из пропсов и состояние формы для отправки комментария
     postComment({
       offerId,
       body: {

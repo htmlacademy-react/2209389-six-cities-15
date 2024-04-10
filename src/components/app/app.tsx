@@ -12,9 +12,9 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import { AppRoute, CITIES, DEFAULT_CITY } from '../../const';
 import Layout from '../layout/layout';
 import { offersActions } from '../../store/slices/offers';
-import { getToken } from '../../services/token';
 import { userActions } from '../../store/slices/user';
 import ProtectedRoute from '../private-route/protected-route';
+import { getToken } from '../../services/token';
 
 
 //импорты из библиотек желательно расположить в самом начале
@@ -29,21 +29,17 @@ function App(): JSX.Element {
   const { checkAuth } = useActionCreators(userActions);
 
   useEffect(() => {
+    if (getToken()) {
+      checkAuth();
+    }
     fetchAllOffers()
       .unwrap()
       .catch(() => {
         toast.error(TOASTIFY_ERROR_MESSAGE);
       });
 
-  }, [fetchAllOffers]);
+  }, [fetchAllOffers, checkAuth]);
 
-  // сохраняем токен и проверяем его, чтобы не требовать повторной авторизации
-  const token = getToken();
-  useEffect(() => {
-    if (token) {
-      checkAuth();
-    }
-  }, [token, checkAuth]);
 
   return (
     <HelmetProvider>
