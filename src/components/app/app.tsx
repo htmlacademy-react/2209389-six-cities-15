@@ -14,8 +14,6 @@ import Layout from '../layout/layout';
 import { offersActions } from '../../store/slices/offers';
 import { userActions } from '../../store/slices/user';
 import ProtectedRoute from '../private-route/protected-route';
-import { getToken } from '../../services/token';
-
 
 //импорты из библиотек желательно расположить в самом начале
 
@@ -29,9 +27,7 @@ function App(): JSX.Element {
   const { checkAuth } = useActionCreators(userActions);
 
   useEffect(() => {
-    if (getToken()) {
-      checkAuth();
-    }
+    checkAuth();
     fetchAllOffers()
       .unwrap()
       .catch(() => {
